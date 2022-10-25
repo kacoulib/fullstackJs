@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading{
+            background-color: beige;
+        }
+        .number{
+            color:blueviolet;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        // Component
+        const Wrapper = (props) => {
+            const numbers = [ 4, 3, 7 ];
+            return (
+                <div className="heading" >
+                  {numbers.map((num) => <Number num={num} /> )}
+                </div>
+            )
+        }
+
+        const Number = (props) => <p className="number"> {props.num**3}</p>
+
+        // Rendu dans le DOM
+        ReactDOM.render(
+            <Wrapper />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+</html>

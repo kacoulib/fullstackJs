@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        // constantes
+        const precision = 10;
+
+        // Fonctions utiles
+        const avg = (notes) => {
+            if (notes.length > 0) {
+                let sum = 0;
+                for (const note of notes) sum += note;
+
+                return Math.floor((sum / notes.length) * precision) / precision;
+            }
+
+            return null;
+        }
+
+        // Composants
+        const App = (props) => {
+
+            const products = [
+                { prices: [1.2, 1.1, 1.0], name: "apple" },
+                { prices: [1.8, 1.0, 1.9], name: "oragne" },
+                { prices: [1.0, 0.9, 1.1], name: "bananas" },
+                { prices: [], name: "raspberry" },
+            ];
+
+            return (
+                <div className="main">
+                    {/* ne pas oublier la clé pour les composants mappés dans le DOM, React a besoin de les identifier */}
+                    {products.map((p, i) => <Product key={i} product={p} />)}
+                </div>
+            )
+        }
+
+        const Product = ({ product }) => {
+            const { prices, name } = product;
+
+            return (
+                <div className="product">
+                    <p>{name} average: {avg(prices) || 'pas prix'}</p>
+                    { prices.length > 0 && (
+                        <ul>
+                            <h2>Ensemble des prix</h2>
+                            {prices.map((price, i) => <li key={i}>{price}</li>)}
+                        </ul>
+                    )}
+                </div>
+            )
+        }
+
+        // Rendu dans le DOM
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>

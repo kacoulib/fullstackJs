@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const App = (props) => {
+
+            const MESSAGES = [
+                { content: "React JS" },
+                { content: "React Native" },
+                { content: "Angular" },
+                { content: "Symfony" },
+                { content: "MongoDB" },
+            ];
+
+            return (
+                <div className="main">
+                    <Messages messages={MESSAGES} />
+                </div>
+            )
+        }
+
+        const Messages = (props) => {
+
+            // props.messages assignation par décomposition
+            const { messages } = props;
+
+            return (
+                <div className="main">
+                    {messages.map( (m, i) => <Message key={i} message={m} />)}
+                </div>
+            )
+        }
+
+        const Message = (props) => {
+            const { message } =props;
+
+            return (
+               <p>{message.content}</p>
+            )
+        }
+
+        // Rendu dans le DOM
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
