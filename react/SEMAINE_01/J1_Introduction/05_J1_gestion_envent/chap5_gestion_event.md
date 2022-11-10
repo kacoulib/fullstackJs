@@ -93,7 +93,17 @@ class Button extends React.Component{
 
 1. Créez deux boutons le premier incremente le compteur de + 1 et l'autre de moins -1. Affichez ce dernier dans le DOM.
 
-2. Faites en sorte que l'on ne puisse pas décrémenter en dessous de la valeur 0. Affichez un message d'avertissement sous le compteur pour le signaler lorsque l'utilisateur décrémente en dessous de 0. Pour l'implémentation de cette spécificité appliquez les bonnes pratiques UX.
+2. Faites en sorte que l'on ne puisse pas décrémenter en dessous de la valeur 0. Affichez un message d'avertissement sous le compteur pour le signaler lorsque l'utilisateur décrémente en dessous de 0. 
+
+3. Lorsque le compteur arrive à 10 exactement, affichez une petite étoile sous le compteur. Si on continue à incrémenter on ajoutera successivement des étoiles pour chaque dixaine dépassée. Si on décrémente les petites étoiles se mettent à jour en fonction de la valeur du compteur.
+
+```txt
+
+Counter : 23
+
+  (nombre de dixaine) : * * 
+
+```
 
 ## 1. Exercice Compteur
 

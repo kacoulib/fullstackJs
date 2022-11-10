@@ -27,16 +27,17 @@
         const [count, setCount] = React.useState(0);
 
         function increment(e){
-
-            console.log(e)
-
-            // met à jour le state => qui met à jour le render
             setCount( count + 1 )
+        }
+
+        function decrement(e){
+            setCount( count - 1 )
         }
 
         return (
           <div>
             <button onClick={increment}>+1</button>
+            <button onClick={decrement}>-1</button>
             <p>Counter :  {count} </p>
           </div>
         );

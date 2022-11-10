@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+      .heading {
+        background-color: beige;
+      }
+      .number {
+        color: blueviolet;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function App(props) {
+        const [count, setCount] = React.useState(0);
+        const [message, setMessage] = React.useState("");
+        const [stars, setStar] = React.useState([]);
+
+
+
+        // ménoriser la valeur dans le composant si la référence de cette valeur change la ref.current change
+        const ref = React.useRef();
+        ref.current = count;
+
+        function increment(sens = 1) {
+          if (count >= 0) setCount(count + sens * 1);
+        }
+
+        // n'écoute aucun changement et est exécuté au montage uniquement
+        React.useEffect(() => {
+          console.log("stars")
+        }, [])
+
+        // le useEffect suivant watch le state "stars"
+        React.useEffect(() => {
+          console.log(stars)
+        }, [stars])
+
+
+        // watch les changements du state count ici (paramètre du useEffect)
+        React.useEffect(() => {
+
+          if (count === 0)
+            setMessage(
+              "Attention vous ne pouvez pas aller dans les négatifs ! "
+            );
+          else setMessage("");
+
+          // fonction de nettoyage (un peu difficile à comprendre)
+          return () => {
+            // ref.current la valeur qui vient de changer et count ancienne valeur 
+            // pop retire le dernier élémement du tableau
+            if (ref.current - count < 0 && ref.current % 10 === 0) {stars.pop();  setStar(stars) }
+
+            // si on monte 
+            if (ref.current - count  > 0 && ref.current % 10 === 0) {
+              
+              stars.push("*");  setStar(stars) 
+
+              console.log(stars)
+            
+            }
+          };
+        }, [count]); // observation du changement de cette valeur 
+
+        return (
+          <div>
+            {message !== "" && <p>{message}</p>}
+            <button onClick={() => increment(1)}>+1</button>
+            <button disabled={count === 0} onClick={() => increment(-1)}>
+              -1
+            </button>
+            <p>Counter : {count} </p>
+            {stars.length > 0 && stars.map((s, i) => <span key={i}>{s}</span>)}
+          </div>
+        );
+      }
+
+      // Rendu dans le DOM
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
